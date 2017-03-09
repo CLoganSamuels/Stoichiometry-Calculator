@@ -24,7 +24,7 @@ def main():
         reactant = moleculeSplit(reactant,1) 
         #splits each molecule into a dictionary of atoms
         #key = atomic symbol, value = the quantity of the atom per molecule        
-        for atom in reactant
+        for atom in reactant:
             if atom in atomList:
                 aIndex = atomList.index(atom)
                 matrix[aIndex] = populate(matrix[aIndex],i,reactant[atom])
