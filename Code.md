@@ -1,5 +1,6 @@
 # Stoichiometry-Calculator
 #Balances chemical equations
+#Be sure to view raw text for better formatting
 
 from sympy import Matrix
 
