@@ -3,11 +3,12 @@
 #Be sure to view raw text for better formatting
 
 from sympy import Matrix
+import random
 
 def main():
     #takes input and puts data into a 2d matrix
     print('Enter an unbalanced chemical equation. (No coefficients.)')
-    print('Example input: Fe + H2SO4 = Fe2(SO4)3 + H2')
+    print('Example input: ' + pickedExample)
     equation = input(': ').replace('-->', '=')
     react, prod = equation.replace(' ', '').split('=') #splits the equation into product and reacant sides
     reactants = react.split('+')
@@ -21,6 +22,7 @@ def main():
     i = 0 #the total number of molecules counted so far
     
     for reactant in reactants: #add reacant atoms to matrix as positive integers
+        
         reactant = moleculeSplit(reactant,1) 
         #splits each molecule into a dictionary of atoms
         #key = atomic symbol, value = the quantity of the atom per molecule        
@@ -103,7 +105,7 @@ def outPut(coEffs, reactants, products):
         if coEffs[i] == 1: coEffs[i] = ''
         equation = equation + str(coEffs[i]) + reactant.translate(subscript) + ' + '
         i += 1
-    equation = equation[:-2] + " --> "
+    equation = equation[:-2] + "--> "
     for product in products:
         if coEffs[i] == 1: coEffs[i] = ''
         equation = equation + str(coEffs[i]) + product.translate(subscript) + ' + '
@@ -123,9 +125,22 @@ def populate(l, most,new):
     l.append(new)
     return(l)
 
+def example():
+    if firstTime: return('H2 + O2 = H2O')
+    choices = ['Fe + H2SO4 = Fe2(SO4)3 + H2', 'Si(OH)4 + NaBr --> SiBr4 + NaOH',\
+    'MoS2 + O2 --> MoO3 + SO2', 'C2H4 + O2 = CO2 + H2O',\
+    'K4Fe(CN)6 + KMnO4 + H2SO4 = KHSO4 + Fe2(SO4)3 + MnSO4 + HNO3 + CO2 + H2O']
+    if pickedExample in choices:
+        choices.remove(pickedExample)
+        #prevents a choice from being picked twice in a row
+    return(random.choice(choices))
+
+firstTime = True
 while True:
     try:
+        pickedExample = example()
         main()
+        firstTime = False
     except:
         print('')
         print('There appears to be an error with your input. Remember that\
